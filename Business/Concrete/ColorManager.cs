@@ -1,4 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constans;
+using Business.Utilities;
+using Business.ValidationRules.FluentValidation;
+using Core.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,29 +20,38 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public IResult Add(Color color)
         {
+            ValidationTool.Validate(new ColorValidator(),color);
+            if (_colorDal.Get(c=>c.ColorName==color.ColorName)!=null)
+            {
+                return new ErrorResult(Messages.ColorAddError);
+            }
             _colorDal.Add(color);
+            return new SuccessResult(Messages.ColorAdded);
         }
 
-        public void Delete(Color color)
+        public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.Listed);
         }
 
-        public Color GetById(int colorId)
+        public IDataResult<Color> GetById(int colorId)
         {
-            return _colorDal.Get(c=>c.Id==colorId);
+            return new SuccessDataResult<Color>( _colorDal.Get(c => c.Id == colorId));
         }
 
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
-             _colorDal.Update(color);
+            ValidationTool.Validate(new ColorValidator(), color);
+            _colorDal.Update(color);
+            return new SuccessResult(Messages.ColorUpdated);
         }
     }
 }
