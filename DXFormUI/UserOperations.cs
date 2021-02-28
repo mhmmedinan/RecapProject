@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.DependencyResolvers.Ninject;
+using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
 using Entities.Concrete;
 using System;
@@ -17,14 +17,16 @@ namespace DXFormUI
 {
     public partial class UserOperations : DevExpress.XtraEditors.XtraForm
     {
+        IUserService _userService;
         SHA1 sha = new SHA1CryptoServiceProvider();
-        
+       
+
         public UserOperations()
         {
             InitializeComponent();
             _userService = InstanceFactory.GetInstance<IUserService>();
         }
-        private IUserService _userService;
+
         
 
         private void UserOperations_Load(object sender, EventArgs e)
@@ -47,6 +49,7 @@ namespace DXFormUI
             {
                 var result = _userService.Add(new User
                 {
+                    UserName=tbxUser.Text,
                     FirstName = tbxName.Text,
                     LastName = tbxLastName.Text,
                     Email = tbxEmail.Text,
@@ -66,10 +69,11 @@ namespace DXFormUI
         private void dgwUser_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var row = dgwUser.CurrentRow;
-            tbxName.Text = row.Cells[1].Value.ToString();
-            tbxLastName.Text= row.Cells[2].Value.ToString();
-            tbxEmail.Text= row.Cells[3].Value.ToString();
-            tbxPassword.Text= row.Cells[4].Value.ToString();
+            tbxUser.Text = row.Cells[1].Value.ToString();
+            tbxName.Text = row.Cells[2].Value.ToString();
+            tbxLastName.Text= row.Cells[3].Value.ToString();
+            tbxEmail.Text= row.Cells[4].Value.ToString();
+            tbxPassword.Text= row.Cells[5].Value.ToString();
         }
 
         private void updateBtn_Click(object sender, EventArgs e)
@@ -82,6 +86,7 @@ namespace DXFormUI
                 var result = _userService.Update(new User
                 {
                     Id = Convert.ToInt32(dgwUser.CurrentRow.Cells[0].Value),
+                    UserName=tbxUser.Text,
                     FirstName=tbxName.Text,
                     LastName=tbxLastName.Text,
                     Email=tbxEmail.Text,

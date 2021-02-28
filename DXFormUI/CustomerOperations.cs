@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.DependencyResolvers.Ninject;
+using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
 using Entities.Concrete;
 using System;
@@ -16,14 +16,17 @@ namespace DXFormUI
 {
     public partial class CustomerOperations : DevExpress.XtraEditors.XtraForm
     {
+       
+
+
         public CustomerOperations()
         {
             InitializeComponent();
             _userService = InstanceFactory.GetInstance<IUserService>();
             _customerService = InstanceFactory.GetInstance<ICustomerService>();
         }
-        private IUserService _userService;
-        private ICustomerService _customerService;
+        IUserService _userService;
+        ICustomerService _customerService;
         private void CustomerOperations_Load(object sender, EventArgs e)
         {
             LoadCustomers();
@@ -52,10 +55,10 @@ namespace DXFormUI
                 {
 
                     UserId = Convert.ToInt32(cbxUserId.SelectedValue),
-                    CompanyName=tbxCompanyName.Text
+                    CompanyName = tbxCompanyName.Text
 
                 });
-                MessageBox.Show(result.Message,"Bilgilendirme");
+                MessageBox.Show(result.Message, "Bilgilendirme");
                 LoadCustomers();
             }
             catch (Exception exception)
@@ -68,11 +71,11 @@ namespace DXFormUI
         {
             try
             {
-                var result = _customerService.Update(new Customer 
+                var result = _customerService.Update(new Customer
                 {
-                Id=Convert.ToInt32(dgwCustomer.CurrentRow.Cells[0].Value),
-                UserId=Convert.ToInt32(cbxUserId.SelectedValue),
-                CompanyName=tbxCompanyName.Text
+                    Id = Convert.ToInt32(dgwCustomer.CurrentRow.Cells[0].Value),
+                    UserId = Convert.ToInt32(cbxUserId.SelectedValue),
+                    CompanyName = tbxCompanyName.Text
                 });
                 MessageBox.Show(result.Message, "Bilgilendirme");
                 LoadCustomers();

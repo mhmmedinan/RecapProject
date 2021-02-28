@@ -30,7 +30,6 @@ namespace DXFormUI
         private void InitializeComponent()
         {
             this.dgwUser = new System.Windows.Forms.DataGridView();
-            this.nameLbl = new System.Windows.Forms.Label();
             this.tbxName = new System.Windows.Forms.TextBox();
             this.psswordLbl = new System.Windows.Forms.Label();
             this.tbxPassword = new System.Windows.Forms.TextBox();
@@ -41,6 +40,9 @@ namespace DXFormUI
             this.deleteBtn = new DevExpress.XtraEditors.SimpleButton();
             this.addBtn = new DevExpress.XtraEditors.SimpleButton();
             this.updateBtn = new DevExpress.XtraEditors.SimpleButton();
+            this.nameLbl = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbxUser = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgwUser)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,19 +57,9 @@ namespace DXFormUI
             this.dgwUser.TabIndex = 0;
             this.dgwUser.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwUser_CellClick);
             // 
-            // nameLbl
-            // 
-            this.nameLbl.AutoSize = true;
-            this.nameLbl.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.nameLbl.Location = new System.Drawing.Point(12, 208);
-            this.nameLbl.Name = "nameLbl";
-            this.nameLbl.Size = new System.Drawing.Size(68, 15);
-            this.nameLbl.TabIndex = 1;
-            this.nameLbl.Text = "First Name";
-            // 
             // tbxName
             // 
-            this.tbxName.Location = new System.Drawing.Point(96, 203);
+            this.tbxName.Location = new System.Drawing.Point(96, 220);
             this.tbxName.Multiline = true;
             this.tbxName.Name = "tbxName";
             this.tbxName.Size = new System.Drawing.Size(126, 25);
@@ -77,7 +69,7 @@ namespace DXFormUI
             // 
             this.psswordLbl.AutoSize = true;
             this.psswordLbl.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.psswordLbl.Location = new System.Drawing.Point(284, 242);
+            this.psswordLbl.Location = new System.Drawing.Point(284, 260);
             this.psswordLbl.Name = "psswordLbl";
             this.psswordLbl.Size = new System.Drawing.Size(59, 15);
             this.psswordLbl.TabIndex = 1;
@@ -85,7 +77,7 @@ namespace DXFormUI
             // 
             // tbxPassword
             // 
-            this.tbxPassword.Location = new System.Drawing.Point(368, 237);
+            this.tbxPassword.Location = new System.Drawing.Point(368, 254);
             this.tbxPassword.Multiline = true;
             this.tbxPassword.Name = "tbxPassword";
             this.tbxPassword.Size = new System.Drawing.Size(126, 25);
@@ -95,7 +87,7 @@ namespace DXFormUI
             // 
             this.lastNameLbl.AutoSize = true;
             this.lastNameLbl.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lastNameLbl.Location = new System.Drawing.Point(12, 242);
+            this.lastNameLbl.Location = new System.Drawing.Point(12, 259);
             this.lastNameLbl.Name = "lastNameLbl";
             this.lastNameLbl.Size = new System.Drawing.Size(65, 15);
             this.lastNameLbl.TabIndex = 1;
@@ -103,7 +95,7 @@ namespace DXFormUI
             // 
             // tbxLastName
             // 
-            this.tbxLastName.Location = new System.Drawing.Point(96, 237);
+            this.tbxLastName.Location = new System.Drawing.Point(96, 254);
             this.tbxLastName.Multiline = true;
             this.tbxLastName.Name = "tbxLastName";
             this.tbxLastName.Size = new System.Drawing.Size(126, 25);
@@ -113,7 +105,7 @@ namespace DXFormUI
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(287, 205);
+            this.label3.Location = new System.Drawing.Point(287, 223);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 15);
             this.label3.TabIndex = 1;
@@ -121,7 +113,7 @@ namespace DXFormUI
             // 
             // tbxEmail
             // 
-            this.tbxEmail.Location = new System.Drawing.Point(368, 198);
+            this.tbxEmail.Location = new System.Drawing.Point(368, 220);
             this.tbxEmail.Multiline = true;
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(126, 25);
@@ -163,11 +155,41 @@ namespace DXFormUI
             this.updateBtn.Text = "Update";
             this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
+            // nameLbl
+            // 
+            this.nameLbl.AutoSize = true;
+            this.nameLbl.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.nameLbl.Location = new System.Drawing.Point(12, 223);
+            this.nameLbl.Name = "nameLbl";
+            this.nameLbl.Size = new System.Drawing.Size(68, 15);
+            this.nameLbl.TabIndex = 1;
+            this.nameLbl.Text = "First Name";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.Location = new System.Drawing.Point(138, 188);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 15);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "User Name";
+            // 
+            // tbxUser
+            // 
+            this.tbxUser.Location = new System.Drawing.Point(231, 181);
+            this.tbxUser.Multiline = true;
+            this.tbxUser.Name = "tbxUser";
+            this.tbxUser.Size = new System.Drawing.Size(126, 25);
+            this.tbxUser.TabIndex = 5;
+            // 
             // UserOperations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(589, 389);
+            this.Controls.Add(this.tbxUser);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.addBtn);
             this.Controls.Add(this.deleteBtn);
@@ -192,7 +214,6 @@ namespace DXFormUI
         #endregion
 
         private System.Windows.Forms.DataGridView dgwUser;
-        private System.Windows.Forms.Label nameLbl;
         private System.Windows.Forms.TextBox tbxName;
         private System.Windows.Forms.Label psswordLbl;
         private System.Windows.Forms.Label lastNameLbl;
@@ -203,5 +224,8 @@ namespace DXFormUI
         private DevExpress.XtraEditors.SimpleButton addBtn;
         private DevExpress.XtraEditors.SimpleButton updateBtn;
         public System.Windows.Forms.TextBox tbxPassword;
+        private System.Windows.Forms.Label nameLbl;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbxUser;
     }
 }

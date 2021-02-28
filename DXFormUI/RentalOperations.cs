@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.DependencyResolvers.Ninject;
+using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
 using Entities.Concrete;
 using System;
@@ -16,6 +16,8 @@ namespace DXFormUI
 {
     public partial class RentalOperations : DevExpress.XtraEditors.XtraForm
     {
+       
+
         public RentalOperations()
         {
             InitializeComponent();
@@ -24,9 +26,12 @@ namespace DXFormUI
             _rentalService = InstanceFactory.GetInstance<IRentalService>();
 
         }
-        private ICarService _carService;
-        private ICustomerService _customerService;
-        private IRentalService _rentalService;
+
+        ICarService _carService;
+        ICustomerService _customerService;
+        IRentalService _rentalService;
+
+
         private void RentalOperations_Load(object sender, EventArgs e)
         {
             LoadCars();
@@ -38,7 +43,7 @@ namespace DXFormUI
         {
             var result = _rentalService.GetAll();
             dgwRental.DataSource = result.Data;
-            tbxRent.Text = string.Format("{0:dd.MM.yyyy hh:mm}", DateTime.Now);
+            tbxRent.Text = string.Format("{0:dd.MM.yyyy HH:mm}", DateTime.Now);
         }
 
         private void LoadCustomers()
@@ -59,28 +64,77 @@ namespace DXFormUI
 
         private void rentAddBtn_Click(object sender, EventArgs e)
         {
-
-            var result = _rentalService.Add(new Rental
+            try
             {
-                CarId = Convert.ToInt32(cbxCarId1.SelectedValue),
-                CustomerId = Convert.ToInt32(cbxCustomerId1.SelectedValue),
-                RentDate = DateTime.Now,
-                ReturnDate = null
-            });
-            if (result.Success == true)
-            {
-                MessageBox.Show(result.Message);
+                var result = _rentalService.Add(new Rental
+                {
+                    CarId = Convert.ToInt32(cbxCarId1.SelectedValue),
+                    CustomerId = Convert.ToInt32(cbxCustomerId1.SelectedValue),
+                    RentDate = DateTime.Now,
+                    ReturnDate = null
+                });
+                MessageBox.Show(result.Message, "Bilgilendirme Penceresi");
                 LoadRentals();
             }
-            else
+            catch (Exception exception)
             {
-                MessageBox.Show(result.Message);
+
+                MessageBox.Show(exception.Message, "Bilgilendirme Penceresi");
+            }
+
+
+        }
+
+        private void rentalBtnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var result = _rentalService.Update(new Rental 
+                {
+                    Id=Convert.ToInt32(dgwRental.CurrentRow.Cells[0].Value),
+                    CarId=Convert.ToInt32(cbxCarId1.SelectedValue),
+                    CustomerId=Convert.ToInt32(cbxCustomerId1.SelectedValue),
+                    RentDate=DateTime.Now,
+                    ReturnDate=null
+                });
+                MessageBox.Show(result.Message, "Bilgilendirme Penceresi");
+                LoadRentals();
+            }
+            catch (Exception exception)
+            {
+
+                MessageBox.Show(exception.Message, "Bilgilendirme Penceresi");
             }
         }
 
-    
-           
-           
-        
+        private void rentalBtnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgwRental.CurrentRow!=null)
+            {
+                try
+                {
+                    var result = _rentalService.Delete(new Rental 
+                    {
+                    Id=Convert.ToInt32(dgwRental.CurrentRow.Cells[0].Value)
+                    });
+                    MessageBox.Show(result.Message, "Bilgilendirme Penceresi");
+                    LoadRentals();
+                }
+                catch (Exception exception)
+                {
+
+                    MessageBox.Show(exception.Message, "Bilgilendirme Penceresi");
+                }
+            }
+        }
+
+        private void dgwRental_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var row = dgwRental.CurrentRow;
+            cbxCarId1.SelectedValue = row.Cells[1].Value.ToString();
+            cbxCustomerId1.SelectedValue = row.Cells[2].Value.ToString();
+            tbxRent.Text = row.Cells[3].Value.ToString();
+            
+        }
     }
 }

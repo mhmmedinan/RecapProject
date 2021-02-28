@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Utilities
+namespace Core.CrossCuttingConcers.Validation
 {
     public static class ValidationTool
     {
@@ -14,7 +14,7 @@ namespace Business.Utilities
         {
             var context = new ValidationContext<object>(entity);
             var result = validator.Validate(context);
-            if (result.Errors.Count > 0)
+            if (!result.IsValid)
             {
                 throw new ValidationException(result.Errors);
             }

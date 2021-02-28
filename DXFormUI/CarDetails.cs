@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.DependencyResolvers.Ninject;
+using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
@@ -11,19 +11,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace DXFormUI
 {
     public partial class CarDetails : DevExpress.XtraEditors.XtraForm
     {
+        
+       
+
         public CarDetails()
         {
             InitializeComponent();
-            _carservice = InstanceFactory.GetInstance<ICarService>();
+            _carService = InstanceFactory.GetInstance<ICarService>();
         }
-        private ICarService _carservice;
+        ICarService _carService;
+     
         private void CarDetails_Load(object sender, EventArgs e)
         {
-            var result = _carservice.GetCarDetails();
+            var result = _carService.GetCarDetails();
             dgwCarDetails.DataSource = result.Data;
         }
     }

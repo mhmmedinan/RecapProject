@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.DependencyResolvers.Ninject;
+using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
 using Entities.Concrete;
 using System;
@@ -20,8 +20,12 @@ namespace DXFormUI
         {
             InitializeComponent();
             _brandService = InstanceFactory.GetInstance<IBrandService>();
-        }
-        private IBrandService _brandService;
+         }
+
+
+
+        IBrandService _brandService;
+
         private void BrandOperations_Load(object sender, EventArgs e)
         {
             LoadBrand();
@@ -58,8 +62,8 @@ namespace DXFormUI
 
                 MessageBox.Show(exception.Message, "Bilgilendirme Penceresi");
             }
-            
-           
+
+
 
 
         }
@@ -82,7 +86,7 @@ namespace DXFormUI
 
                 MessageBox.Show(exception.Message, "Bilgilendirme Penceresi");
             }
-            
+
         }
 
         private void dgwBrand_CellClick(object sender, DataGridViewCellEventArgs e)

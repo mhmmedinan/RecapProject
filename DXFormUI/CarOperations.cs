@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.DependencyResolvers.Ninject;
+using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
 using Entities.Concrete;
 using System;
@@ -16,6 +16,7 @@ namespace DXFormUI
 {
     public partial class CarOperations : DevExpress.XtraEditors.XtraForm
     {
+
         public CarOperations()
         {
             InitializeComponent();
@@ -23,9 +24,13 @@ namespace DXFormUI
             _brandService = InstanceFactory.GetInstance<IBrandService>();
             _colorService = InstanceFactory.GetInstance<IColorService>();
         }
-        private ICarService _carService;
-        private IBrandService _brandService;
-        private IColorService _colorService;
+
+
+        ICarService _carService;
+        IBrandService _brandService;
+        IColorService _colorService;
+
+
         private void CarOperations_Load(object sender, EventArgs e)
         {
             LoadBrands();
@@ -64,15 +69,15 @@ namespace DXFormUI
         {
             try
             {
-                var result =_carService.Add(new Car
+                var result = _carService.Add(new Car
                 {
                     BrandId = Convert.ToInt32(cbxBrandId.SelectedValue),
                     ColorId = Convert.ToInt32(cbxColorId.SelectedValue),
                     ModelYear = Convert.ToInt32(tbxModelYear.Text),
                     DailyPrice = Convert.ToDecimal(tbxPrice.Text),
-                    Description=tbxDescription.Text
+                    Description = tbxDescription.Text
                 });
-                MessageBox.Show(result.Message,"Bilgilendirme Penceresi");
+                MessageBox.Show(result.Message, "Bilgilendirme Penceresi");
                 LoadCars();
             }
             catch (Exception exception)
@@ -99,12 +104,12 @@ namespace DXFormUI
                 {
                     Id = Convert.ToInt32(dgwCar.CurrentRow.Cells[0].Value),
                     BrandId = Convert.ToInt32(cbxBrandId.SelectedValue),
-                    ColorId= Convert.ToInt32(cbxColorId.SelectedValue),
-                    ModelYear=Convert.ToInt32(tbxModelYear.Text),
-                    DailyPrice=Convert.ToDecimal(tbxPrice.Text),
-                    Description=tbxDescription.Text
+                    ColorId = Convert.ToInt32(cbxColorId.SelectedValue),
+                    ModelYear = Convert.ToInt32(tbxModelYear.Text),
+                    DailyPrice = Convert.ToDecimal(tbxPrice.Text),
+                    Description = tbxDescription.Text
                 });
-                MessageBox.Show(result.Message,"Bilgilendirme Penceresi");
+                MessageBox.Show(result.Message, "Bilgilendirme Penceresi");
                 LoadCars();
             }
             catch (Exception exception)
@@ -121,16 +126,16 @@ namespace DXFormUI
                 {
                     var result = _carService.Delete(new Car
                     {
-                         Id= Convert.ToInt32(dgwCar.CurrentRow.Cells[0].Value)
+                        Id = Convert.ToInt32(dgwCar.CurrentRow.Cells[0].Value)
 
                     });
-                    MessageBox.Show(result.Message,"Bilgilendirme Penceresi");
+                    MessageBox.Show(result.Message, "Bilgilendirme Penceresi");
                     LoadCars();
                 }
                 catch (Exception exception)
                 {
 
-                    MessageBox.Show(exception.Message,"Bilgilendirme Penceresi");
+                    MessageBox.Show(exception.Message, "Bilgilendirme Penceresi");
                 }
 
             }
@@ -140,13 +145,13 @@ namespace DXFormUI
         {
             try
             {
-                var result= _carService.GetCarByBrand(Convert.ToInt32(cbxBrandName.SelectedValue));
+                var result = _carService.GetCarByBrand(Convert.ToInt32(cbxBrandName.SelectedValue));
                 dgwCar.DataSource = result.Data;
             }
-            catch 
+            catch
             {
 
-                
+
             }
         }
     }

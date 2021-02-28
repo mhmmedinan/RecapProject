@@ -55,6 +55,7 @@ namespace DXFormUI
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage6 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.rentalReturnBtn = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,9 +79,10 @@ namespace DXFormUI
             this.userOperationsBtn,
             this.customerOperationsBtn,
             this.customerDetailsBtn,
-            this.rentalOperationsBtn});
+            this.rentalOperationsBtn,
+            this.rentalReturnBtn});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 15;
+            this.ribbonControl1.MaxItemId = 16;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -303,8 +305,21 @@ namespace DXFormUI
             // ribbonPageGroup6
             // 
             this.ribbonPageGroup6.ItemLinks.Add(this.rentalOperationsBtn);
+            this.ribbonPageGroup6.ItemLinks.Add(this.rentalReturnBtn);
             this.ribbonPageGroup6.Name = "ribbonPageGroup6";
             this.ribbonPageGroup6.Text = "Rental";
+            // 
+            // rentalReturnBtn
+            // 
+            this.rentalReturnBtn.Caption = "Rental Return Update";
+            this.rentalReturnBtn.Id = 15;
+            this.rentalReturnBtn.ImageOptions.Image = global::DXFormUI.Properties.Resources.convert_16x16;
+            this.rentalReturnBtn.ItemAppearance.Normal.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.rentalReturnBtn.ItemAppearance.Normal.Options.UseFont = true;
+            this.rentalReturnBtn.Name = "rentalReturnBtn";
+            this.rentalReturnBtn.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
+            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.rentalReturnBtn.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rentalReturnBtn_ItemClick);
             // 
             // Home
             // 
@@ -357,5 +372,6 @@ namespace DXFormUI
         private DevExpress.XtraBars.BarButtonItem rentalOperationsBtn;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage6;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
+        private DevExpress.XtraBars.BarButtonItem rentalReturnBtn;
     }
 }

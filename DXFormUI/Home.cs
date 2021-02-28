@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using Business.DependencyResolvers.Autofac;
 using Business.DependencyResolvers.Ninject;
 using DataAccess.Concrete.EntityFramework;
 using DevExpress.XtraEditors;
@@ -19,11 +20,9 @@ namespace DXFormUI
     {
         public Home()
         {
-            InitializeComponent();
-
+           InitializeComponent();
+           
         }
-        
-        
         private void XtraForm1_Load(object sender, EventArgs e)
         {
             
@@ -33,7 +32,8 @@ namespace DXFormUI
         private void brandOperationsBtn_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             BrandOperations brandOperations = new BrandOperations();
-            brandOperations.Show();
+
+           brandOperations.Show();
         }
 
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -81,6 +81,12 @@ namespace DXFormUI
         {
             RentalOperations rentalOperations = new RentalOperations();
             rentalOperations.Show();
+        }
+
+        private void rentalReturnBtn_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            RentalReturnUpdate rentalReturnUpdate = new RentalReturnUpdate();
+            rentalReturnUpdate.Show();
         }
     }
 }

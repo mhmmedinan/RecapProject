@@ -1,12 +1,14 @@
 ﻿using Business.Abstract;
 using Business.Constans;
-using Business.Utilities;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Results;
+using Core.Utilities.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -19,14 +21,15 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
-
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
-            ValidationTool.Validate(new ColorValidator(),color);
-            if (_colorDal.Get(c=>c.ColorName==color.ColorName)!=null)
+            var result = BusinessRules.Run(CheckIfColorNameExists(color.ColorName));
+            if (result != null)
             {
-                return new ErrorResult(Messages.ColorAddError);
+                return result;
             }
+
             _colorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
         }
@@ -47,11 +50,26 @@ namespace Business.Concrete
             return new SuccessDataResult<Color>( _colorDal.Get(c => c.Id == colorId));
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
-            ValidationTool.Validate(new ColorValidator(), color);
+            var result = BusinessRules.Run(CheckIfColorNameExists(color.ColorName));
+            if (result != null)
+            {
+                return result;
+            }
             _colorDal.Update(color);
             return new SuccessResult(Messages.ColorUpdated);
+        }
+
+        private  IResult CheckIfColorNameExists(string colorName) 
+        {
+            var result = _colorDal.GetAll(c=>c.ColorName==colorName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.ColorNameAlreadyExists);
+            }
+            return new SuccessResult();
         }
     }
 }

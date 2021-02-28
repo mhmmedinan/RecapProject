@@ -10,21 +10,20 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController: ControllerBase
+    public class ColorsContoller : ControllerBase
     {
-        ICustomerService _customerService;
+        IColorService _colorService;
 
-        public CustomerController(ICustomerService customerService)
+        public ColorsContoller(IColorService colorService)
         {
-            _customerService = customerService;
+            _colorService = colorService;
         }
-
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
 
-            var result = _customerService.GetAll();
+            var result = _colorService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -33,9 +32,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Customer customer)
+        public IActionResult Add(Color color)
         {
-            var result = _customerService.Add(customer);
+            var result = _colorService.Add(color);
             if (result.Success)
             {
                 return Ok(result);
@@ -44,9 +43,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Customer customer)
+        public IActionResult Update(Color color)
         {
-            var result = _customerService.Update(customer);
+            var result = _colorService.Update(color);
             if (result.Success)
             {
                 return Ok(result);
@@ -55,15 +54,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Customer customer)
+        public IActionResult Delete(Color color)
         {
-            var result = _customerService.Delete(customer);
+            var result = _colorService.Delete(color);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
     }
 }

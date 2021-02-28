@@ -10,20 +10,20 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BrandController:ControllerBase
+    public class UsersContoller : ControllerBase
     {
-        IBrandService _brandService;
+        IUserService _userService;
 
-        public BrandController(IBrandService brandService)
+        public UsersContoller(IUserService userService)
         {
-            _brandService = brandService;
+            _userService = userService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
 
-            var result = _brandService.GetAll();
+            var result = _userService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -31,10 +31,11 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
-        public IActionResult Add(Brand brand)
+        [HttpGet("add")]
+        public IActionResult Add(User user)
         {
-            var result = _brandService.Add(brand);
+
+            var result = _userService.Add(user);
             if (result.Success)
             {
                 return Ok(result);
@@ -42,10 +43,11 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("update")]
-        public IActionResult Update(Brand brand)
+        [HttpPost("update")]
+        public IActionResult Update(User user)
         {
-            var result = _brandService.Update(brand);
+
+            var result = _userService.Update(user);
             if (result.Success)
             {
                 return Ok(result);
@@ -53,10 +55,11 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("delete")]
-        public IActionResult Delete(Brand brand)
+        [HttpPost("delete")]
+        public IActionResult Delete(User user)
         {
-            var result = _brandService.Delete(brand);
+
+            var result = _userService.Delete(user);
             if (result.Success)
             {
                 return Ok(result);

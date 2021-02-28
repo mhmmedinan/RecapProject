@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.DependencyResolvers.Ninject;
+using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
@@ -15,12 +15,15 @@ namespace DXFormUI
 {
     public partial class CustomerDetails : DevExpress.XtraEditors.XtraForm
     {
+        
         public CustomerDetails()
         {
             InitializeComponent();
             _customerService = InstanceFactory.GetInstance<ICustomerService>();
         }
-        private ICustomerService _customerService;
+        ICustomerService _customerService;
+       
+
         private void CustomerDetails_Load(object sender, EventArgs e)
         {
             var result = _customerService.GetCustomerDetails();

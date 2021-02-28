@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.DependencyResolvers.Ninject;
+using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
 using Entities.Concrete;
 using System;
@@ -15,12 +15,15 @@ namespace DXFormUI
 {
     public partial class ColorOperations : DevExpress.XtraEditors.XtraForm
     {
+        
+
         public ColorOperations()
         {
             InitializeComponent();
             _colorService = InstanceFactory.GetInstance<IColorService>();
         }
-        private IColorService _colorService;
+        IColorService _colorService;
+       
         private void colorAddBtn_Click(object sender, EventArgs e)
         {
             try

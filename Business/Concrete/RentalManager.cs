@@ -1,10 +1,15 @@
 ﻿using Business.Abstract;
 using Business.Constans;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Results;
+using Core.Utilities.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -16,12 +21,13 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate==null);
-            if (result.Count>0)
+            var result = BusinessRules.Run(CheckIfRentalDelivery(rental.CarId));
+            if (result!=null)
             {
-                return new ErrorResult(Messages.RentalInValid);
+                return result;
             }
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
@@ -29,7 +35,8 @@ namespace Business.Concrete
 
         public IResult Delete(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentalDal.Delete(rental);
+            return new SuccessResult(Messages.RentalDeleted);
         }
 
         public IDataResult<List<Rental>> GetAll()
@@ -42,9 +49,51 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
+        public IDataResult<List<RentalDetailDto>> GetRentalDetail()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
+        }
+
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentalDal.Update(rental);
+            return new SuccessResult(Messages.RentalUpdated);
         }
+
+        public IResult UpdateReturnDate(Rental rental)
+        {
+            var result = BusinessRules.Run(CheckIfRentalReturnUpdate(rental.CarId));
+            if (result!=null)
+            {
+                return result;
+            }
+           
+            return new SuccessResult(Messages.RentalUpdatedReturnDate);
+        }
+
+        private IResult CheckIfRentalDelivery(int carId) 
+        {
+            var result = _rentalDal.GetAll(r=>r.CarId==carId && r.ReturnDate==null);
+            if (result.Count>0)
+            {
+                return new ErrorResult(Messages.RentalInValid);
+            }
+            return new SuccessResult();
+        }
+        private IResult CheckIfRentalReturnUpdate(int carId) 
+        {
+            var result = _rentalDal.GetAll(r=>r.CarId==carId);
+            var updateRental = result.LastOrDefault();
+            if (updateRental.ReturnDate!=null)
+            {
+                return new ErrorResult(Messages.RentalUpdatedReturnDateError);
+            }
+            updateRental.ReturnDate = DateTime.Now;
+            _rentalDal.Update(updateRental);
+            return new SuccessResult();
+        }
+
+        
     }
 }

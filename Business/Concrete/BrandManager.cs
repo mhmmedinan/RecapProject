@@ -1,13 +1,15 @@
 ﻿using Business.Abstract;
 using Business.Constans;
-using Business.Utilities;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Results;
+using Core.Utilities.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -21,12 +23,13 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
-           ValidationTool.Validate(new BrandValidator(),brand);
-            if (_brandDal.Get(b=>b.BrandName==brand.BrandName) !=null)
+            IResult result = BusinessRules.Run(CheckIfBrandNameExists(brand.BrandName));
+            if (result!=null)
             {
-               return new ErrorResult(Messages.BrandAddError);
+                return result;
             }
             _brandDal.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
@@ -48,11 +51,27 @@ namespace Business.Concrete
             return  new SuccessDataResult<Brand>( _brandDal.Get(b => b.Id == brandId));
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
-            ValidationTool.Validate(new BrandValidator(), brand);
+            IResult result = BusinessRules.Run(CheckIfBrandNameExists(brand.BrandName));
+            if (result != null)
+            {
+                return result;
+            }
+
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
+        }
+
+        private IResult CheckIfBrandNameExists(string brandName) 
+        {
+            var result = _brandDal.GetAll(p=>p.BrandName==brandName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.BrandNameAlreadyExists);
+            }
+            return new SuccessResult();
         }
     }
 }

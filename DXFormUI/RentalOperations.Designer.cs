@@ -37,6 +37,9 @@ namespace DXFormUI
             this.label2 = new System.Windows.Forms.Label();
             this.rentAddBtn = new DevExpress.XtraEditors.SimpleButton();
             this.tbxRent = new System.Windows.Forms.TextBox();
+            this.rentalBtnDelete = new DevExpress.XtraEditors.SimpleButton();
+            this.rentalBtnUpdate = new DevExpress.XtraEditors.SimpleButton();
+
             ((System.ComponentModel.ISupportInitialize)(this.dgwRental)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,6 +52,7 @@ namespace DXFormUI
             this.dgwRental.Name = "dgwRental";
             this.dgwRental.Size = new System.Drawing.Size(478, 178);
             this.dgwRental.TabIndex = 0;
+            this.dgwRental.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwRental_CellClick);
             // 
             // carLbl
             // 
@@ -100,7 +104,7 @@ namespace DXFormUI
             // 
             this.rentAddBtn.Appearance.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.rentAddBtn.Appearance.Options.UseFont = true;
-            this.rentAddBtn.Location = new System.Drawing.Point(296, 225);
+            this.rentAddBtn.Location = new System.Drawing.Point(296, 196);
             this.rentAddBtn.Name = "rentAddBtn";
             this.rentAddBtn.Size = new System.Drawing.Size(108, 29);
             this.rentAddBtn.TabIndex = 5;
@@ -114,11 +118,36 @@ namespace DXFormUI
             this.tbxRent.Size = new System.Drawing.Size(121, 21);
             this.tbxRent.TabIndex = 6;
             // 
+            // rentalBtnDelete
+            // 
+            this.rentalBtnDelete.Appearance.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.rentalBtnDelete.Appearance.Options.UseFont = true;
+            this.rentalBtnDelete.Location = new System.Drawing.Point(296, 276);
+            this.rentalBtnDelete.Name = "rentalBtnDelete";
+            this.rentalBtnDelete.Size = new System.Drawing.Size(108, 29);
+            this.rentalBtnDelete.TabIndex = 7;
+            this.rentalBtnDelete.Text = "Delete";
+            this.rentalBtnDelete.Click += new System.EventHandler(this.rentalBtnDelete_Click);
+            // 
+            // rentalBtnUpdate
+            // 
+            this.rentalBtnUpdate.Appearance.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.rentalBtnUpdate.Appearance.Options.UseFont = true;
+            this.rentalBtnUpdate.Location = new System.Drawing.Point(296, 237);
+            this.rentalBtnUpdate.Name = "rentalBtnUpdate";
+            this.rentalBtnUpdate.Size = new System.Drawing.Size(108, 29);
+            this.rentalBtnUpdate.TabIndex = 8;
+            this.rentalBtnUpdate.Text = "Update";
+            this.rentalBtnUpdate.Click += new System.EventHandler(this.rentalBtnUpdate_Click);
+            // 
+          
             // RentalOperations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(481, 348);
+            this.ClientSize = new System.Drawing.Size(481, 362);
+            this.Controls.Add(this.rentalBtnUpdate);
+            this.Controls.Add(this.rentalBtnDelete);
             this.Controls.Add(this.tbxRent);
             this.Controls.Add(this.rentAddBtn);
             this.Controls.Add(this.label2);
@@ -146,5 +175,8 @@ namespace DXFormUI
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraEditors.SimpleButton rentAddBtn;
         private System.Windows.Forms.TextBox tbxRent;
+        private DevExpress.XtraEditors.SimpleButton rentalBtnDelete;
+        private DevExpress.XtraEditors.SimpleButton rentalBtnUpdate;
+       
     }
 }
