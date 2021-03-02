@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
+using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

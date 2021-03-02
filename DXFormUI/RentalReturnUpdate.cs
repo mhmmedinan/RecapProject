@@ -65,8 +65,6 @@ namespace DXFormUI
             tbxUserName.Text = row.Cells[2].Value.ToString();
             tbxCmpnyName.Text= row.Cells[3].Value.ToString();
             tbxRentDate.Text= row.Cells[4].Value.ToString();
-           
-
 
         }
     }

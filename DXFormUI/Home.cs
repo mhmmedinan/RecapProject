@@ -61,8 +61,7 @@ namespace DXFormUI
 
         private void userOperationsBtn_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            UserOperations userOperations = new UserOperations();
-            userOperations.Show();
+            
         }
 
         private void customerOperationsBtn_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

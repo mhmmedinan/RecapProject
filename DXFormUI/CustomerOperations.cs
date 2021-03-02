@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.DependencyResolvers.Autofac;
 using DevExpress.XtraEditors;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace DXFormUI
         private void LoadUsers()
         {
             var result = _userService.GetAll();
-            cbxUserId.DataSource = result.Data;
+            cbxUserId.DataSource = result;
             cbxUserId.DisplayMember = "FirstName" + "LastName";
             cbxUserId.ValueMember = "Id";
         }

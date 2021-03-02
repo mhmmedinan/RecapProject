@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constans
@@ -47,5 +48,6 @@ namespace Business.Constans
         public static string Listed = "Listelendi";
         public static string MaintenanceTime = "Sistem bakımda";
         public static string FailAddedImageLimit = "Limit Aşıldı";
+        public static string AuthorizationDenied = "Yetkin yok";
     }
 }

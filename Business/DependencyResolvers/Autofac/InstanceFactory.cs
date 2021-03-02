@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Castle.Core;
+using Microsoft.AspNetCore.Http;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using System;
