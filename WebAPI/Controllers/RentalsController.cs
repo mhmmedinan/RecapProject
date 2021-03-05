@@ -45,5 +45,17 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpPost("transaction")]
+        public IActionResult TransactionTest(Rental rental)
+        {
+
+            var result = _rentalService.TransactionalOperation(rental);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }

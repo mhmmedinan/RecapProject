@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcers.Logging.Log4Net.Loggers;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
@@ -11,17 +13,19 @@ using System.Text;
 
 namespace Business.Concrete
 {
+
     public class AuthManager : IAuthService
     {
         private IUserService _userService;
         private ITokenHelper _tokenHelper;
-
+        
+        
         public AuthManager(IUserService userService, ITokenHelper tokenHelper)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
         }
-
+        
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash, passwordSalt;
@@ -38,7 +42,7 @@ namespace Business.Concrete
             _userService.Add(user);
             return new SuccessDataResult<User>(user, "kayıt başarılı");
         }
-
+       
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);

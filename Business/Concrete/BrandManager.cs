@@ -3,7 +3,9 @@ using Business.BusinessAspect.Autofac;
 using Business.Constans;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcers.Logging.Log4Net.Loggers;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -28,6 +30,7 @@ namespace Business.Concrete
         [SecuredOperation("add,admin")]
         [ValidationAspect(typeof(BrandValidator))]
         [CacheRemoveAspect("IBrandService.Get")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Add(Brand brand)
         {
             IResult result = BusinessRules.Run(CheckIfBrandNameExists(brand.BrandName));
