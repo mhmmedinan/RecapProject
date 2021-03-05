@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constans;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -22,6 +24,7 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
         [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
         {
             var result = BusinessRules.Run(CheckIfRentalDelivery(rental.CarId));
@@ -38,29 +41,38 @@ namespace Business.Concrete
             _rentalDal.Delete(rental);
             return new SuccessResult(Messages.RentalDeleted);
         }
-
+        [CacheAspect]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
-
+        [CacheAspect]
         public IDataResult<Rental> GetById(int rentalId)
         {
             throw new NotImplementedException();
         }
-
+        [CacheAspect]
         public IDataResult<List<RentalDetailDto>> GetRentalDetail()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
         }
 
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Rental rental)
+        {
+            _rentalDal.Add(rental);
+            _rentalDal.Update(rental);
+            return new SuccessResult(Messages.RentalUpdated);
+        }
+
         [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
         }
-
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult UpdateReturnDate(Rental rental)
         {
             var result = BusinessRules.Run(CheckIfRentalReturnUpdate(rental.CarId));

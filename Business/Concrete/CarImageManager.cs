@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constans;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.FileHelper;
@@ -23,7 +25,10 @@ namespace Business.Concrete
         {
             _carImageDal = carImageDal;
         }
+
+        [SecuredOperation("add,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
            IResult result = BusinessRules.Run(CheckIfImageLimit(carImage.CarId),CheckIfCarImageNull(carImage.Id));
@@ -37,6 +42,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [SecuredOperation("delete,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Delete(CarImage carImage)
         {
@@ -54,16 +60,25 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+
+        [SecuredOperation("list,admin")]
+        [CacheAspect]
         public IDataResult<CarImage> Get(int id)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(p => p.Id == id));
         }
 
+
+        [SecuredOperation("list,admin")]
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
+
+        [SecuredOperation("list,admin")]
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetImagesByCarId(int id)
         {
             IResult result = BusinessRules.Run(CheckIfCarImageNull(id));
@@ -75,7 +90,10 @@ namespace Business.Concrete
 
             return new SuccessDataResult<List<CarImage>>(CheckIfCarImageNull(id).Data);
         }
+
+        [SecuredOperation("update,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             var oldpath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\wwwroot")) + _carImageDal.Get(p => p.Id == carImage.Id).ImagePath;
