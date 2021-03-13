@@ -49,7 +49,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandDeleted);
         }
 
-        [SecuredOperation("list,admin")]
+        
         [CacheAspect]
         public IDataResult<List<Brand>> GetAll()
         {

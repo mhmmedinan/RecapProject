@@ -29,6 +29,7 @@ namespace DXFormUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgwRentalReturn = new System.Windows.Forms.DataGridView();
             this.returnBtnUpdate = new DevExpress.XtraEditors.SimpleButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,6 +49,14 @@ namespace DXFormUI
             // 
             this.dgwRentalReturn.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgwRentalReturn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgwRentalReturn.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgwRentalReturn.Location = new System.Drawing.Point(2, 3);
             this.dgwRentalReturn.Name = "dgwRentalReturn";
             this.dgwRentalReturn.Size = new System.Drawing.Size(589, 172);
@@ -159,7 +168,7 @@ namespace DXFormUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 344);
+            this.ClientSize = new System.Drawing.Size(587, 348);
             this.Controls.Add(this.tbxReturnDate);
             this.Controls.Add(this.tbxRentDate);
             this.Controls.Add(this.label5);

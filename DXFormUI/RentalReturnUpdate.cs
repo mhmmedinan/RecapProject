@@ -45,7 +45,7 @@ namespace DXFormUI
            
             if (_rentalService.GetRentalDetail() != null)
             {
-                var result = _rentalService.UpdateReturnDate(new Rental { CarId=Convert.ToInt32(dgwRentalReturn.CurrentRow.Cells[1].Value)});
+                var result = _rentalService.UpdateReturnDate(new Rental { CarId=Convert.ToInt32(dgwRentalReturn.CurrentRow.Cells[0].Value)});
                 if (result.Success)
                 {
                     MessageBox.Show(result.Message,"Bilgilendirme Penceresi");
@@ -62,9 +62,9 @@ namespace DXFormUI
         {
             var row = dgwRentalReturn.CurrentRow;
             tbxCarId2.Text = row.Cells[1].Value.ToString();
-            tbxUserName.Text = row.Cells[2].Value.ToString();
-            tbxCmpnyName.Text= row.Cells[3].Value.ToString();
-            tbxRentDate.Text= row.Cells[4].Value.ToString();
+            tbxUserName.Text = row.Cells[3].Value.ToString();
+            tbxCmpnyName.Text= row.Cells[5].Value.ToString();
+            tbxRentDate.Text= row.Cells[6].Value.ToString();
 
         }
     }

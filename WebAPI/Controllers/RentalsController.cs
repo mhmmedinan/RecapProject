@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -34,16 +35,44 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("add")]
+        [HttpGet("getdetail")]
+        public IActionResult GetRentalDetails()
+        {
+            Thread.Sleep(5000);
+            var result = _rentalService.GetRentalDetail();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("add")]
         public IActionResult Add(Rental rental)
         {
 
             var result = _rentalService.Add(rental);
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Message);
             }
             return BadRequest(result);
+        }
+
+        [HttpGet("returnupdate")]
+        public IActionResult ReturnUpdate(Rental rental)
+        {
+            {
+                var result = _rentalService.UpdateReturnDate(rental);
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+
+                return BadRequest(result);
+            }
+
+            
         }
 
         [HttpPost("transaction")]

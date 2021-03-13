@@ -18,27 +18,32 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (CarContext context = new CarContext())
             {
-                var result = from r in context.Rentals
-                             join c in context.Cars
-                             on r.CarId equals c.Id
-                             join cus in context.Customers
-                             on r.CustomerId equals cus.Id
-                             join us in context.Users
-                             on cus.UserId equals us.Id
+                var result = from rental in context.Rentals
+                             join car in context.Cars
+                                 on rental.CarId equals car.Id
+                             join customer in context.Customers
+                                 on rental.CustomerId equals customer.Id
+                             join brand in context.Brands
+                                 on car.BrandId equals brand.Id
+                             join user in context.Users
+                                 on customer.UserId equals user.Id
+
 
                              select new RentalDetailDto
                              {
 
-                                 Id = r.Id,
-                                 CarId = c.Id,
-                                 UserName = us.FirstName + " " + us.LastName,
-                                 CumpanyName = cus.CompanyName,
-                                 RentDate = r.RentDate,
-                                 ReturnDate = r.ReturnDate
+                                 Id = rental.Id,
+                                 BrandName = brand.BrandName,
+                                 ModelYear = car.ModelYear,
+                                 FirstName = user.FirstName,
+                                 LastName = user.LastName,
+                                 CompanyName = customer.CompanyName,
+                                 RentDate = rental.RentDate,
+                                 ReturnDate = rental.ReturnDate
 
                              };
 
-                    return result.ToList();
+                return result.ToList();
             }
         }
     }
