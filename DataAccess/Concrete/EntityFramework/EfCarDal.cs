@@ -13,28 +13,39 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, CarContext>, ICarDal
     {
-        public List<CarDetailDto> GetCarDetails()
+        
+
+       
+        public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             using (CarContext context = new CarContext())
             {
-                var result = from c in context.Cars
+                var result = from car in context.Cars 
                              join b in context.Brands
-                             on c.BrandId equals b.Id
+                             on car.BrandId equals b.Id
                              join cl in context.Colors
-                             on c.ColorId equals cl.Id
+                             on car.ColorId equals cl.Id
+                            
+                            
 
                              select new CarDetailDto
                              {
-                                 Id = c.Id,
+                                 Id = car.Id,
+                                 BrandId = b.Id,
                                  BrandName = b.BrandName,
+                                 ColorId = cl.Id,
                                  ColorName = cl.ColorName,
-                                 DailyPrice = c.DailyPrice,
-                                 ModelYear = c.ModelYear,
-                                 Description = c.Description
+                                 DailyPrice = car.DailyPrice,
+                                 ModelYear = car.ModelYear,
+                                 Description = car.Description,
+                                 ImagePath = (from im in context.CarImages where im.CarId==car.Id select im.ImagePath).FirstOrDefault()
+                                
+                                 
+                                 
 
 
                              };
-                return result.ToList();
+                return filter == null ? result.ToList() : result.Where(filter).ToList();
 
 
 
@@ -42,5 +53,7 @@ namespace DataAccess.Concrete.EntityFramework
 
             }
         }
+
+       
     }
 }

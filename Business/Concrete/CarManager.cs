@@ -17,6 +17,7 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+        private ICarImageService _carImageService;
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
@@ -42,7 +43,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarDeleted);
         }
 
-        [SecuredOperation("list,admin")]
+        //[SecuredOperation("list,admin")]
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
@@ -50,26 +51,44 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("list,admin")]
+        //[SecuredOperation("list,admin")]
         [CacheAspect]
         public IDataResult<Car> GetById(int carId)
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
         }
 
-
-        [SecuredOperation("list,admin")]
-        [CacheAspect]
-        public IDataResult<List<Car>> GetCarByBrand(int brandId)
+        public IDataResult<List<CarDetailDto>> GetCarByBrand(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.BrandId==brandId));
+            List<CarDetailDto> carDetails = _carDal.GetCarDetails(c =>c.BrandId==brandId);
+            if (carDetails == null)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(Messages.GetErrorCarMessage);
+            }
+            else
+            {
+                return new SuccessDataResult<List<CarDetailDto>>(carDetails, Messages.GetErrorCarMessage);
+            }
         }
 
-        [SecuredOperation("list,admin")]
+        public IDataResult<List<CarDetailDto>> GetCarByColor(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c=>c.ColorId==colorId));
+        }
+
+
+        //[SecuredOperation("list,admin")]
         [CacheAspect]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>( _carDal.GetCarDetails());
+        }
+
+        public IDataResult<List<CarDetailDto>> GetAllCarDetails(int carId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c=>c.Id==carId));
+
+
         }
 
         [SecuredOperation("update,admin")]

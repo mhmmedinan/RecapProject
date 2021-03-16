@@ -49,5 +49,7 @@ namespace Business.Constans
         public static string MaintenanceTime = "Sistem bakımda";
         public static string FailAddedImageLimit = "Limit Aşıldı";
         public static string AuthorizationDenied = "Yetkin yok";
+        public static string GetErrorCarMessage = "Bulunamadı";
+        public static string GetSuccessCarMessage = "";
     }
 }

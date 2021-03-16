@@ -62,5 +62,25 @@ namespace DataAccess.Concrete
             carToUpdate.DailyPrice = car.DailyPrice;
             carToUpdate.Description = car.Description;
         }
+
+        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarDetailDto> GetAllCarDetail(int carId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarDetailDto> GetAllCarDetail()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
