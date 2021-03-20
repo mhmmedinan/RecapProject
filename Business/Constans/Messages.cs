@@ -51,5 +51,9 @@ namespace Business.Constans
         public static string AuthorizationDenied = "Yetkin yok";
         public static string GetErrorCarMessage = "Bulunamadı";
         public static string GetSuccessCarMessage = "";
+
+        public static string InsufficientBalance = "Yetersiz bakiye";
+
+        public static string PaymentCompleted = "Ödeme yapıldı";
     }
 }

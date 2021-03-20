@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Entities.DTOs;
 
 namespace WebAPI.Controllers
 {
@@ -17,10 +18,12 @@ namespace WebAPI.Controllers
     public class RentalsController : ControllerBase
     {
         IRentalService _rentalService;
+        private IPaymentService _paymentService;
 
-        public RentalsController(IRentalService rentalService)
+        public RentalsController(IRentalService rentalService,IPaymentService paymentService)
         {
             _rentalService = rentalService;
+            _paymentService = paymentService;
         }
 
         [HttpGet("getall")]
@@ -73,6 +76,25 @@ namespace WebAPI.Controllers
             }
 
             
+        }
+
+        [HttpPost("paymentadd")]
+        public ActionResult PaymentAdd(RentalPaymentCreditDto rentalPaymentCreditDto)
+        {
+            var paymentResult = _paymentService.CreditPayment(rentalPaymentCreditDto.PaymentCredit);
+            if (!paymentResult.Success)
+            {
+                return BadRequest(paymentResult);
+            }
+            var result = _rentalService.Add(rentalPaymentCreditDto.Rental);
+
+            if (result.Success)
+                return Ok(result);
+            else
+            {
+                throw new System.Exception(result.Message);
+                             
+            }
         }
 
         [HttpPost("transaction")]

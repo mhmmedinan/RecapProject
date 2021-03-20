@@ -38,7 +38,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  DailyPrice = car.DailyPrice,
                                  ModelYear = car.ModelYear,
                                  Description = car.Description,
-                                 ImagePath = (from im in context.CarImages where im.CarId==car.Id select im.ImagePath).FirstOrDefault()
+                                 ImagePath = (from im in context.CarImages where im.CarId==car.Id select im.ImagePath).FirstOrDefault(),
+                                
                                 
                                  
                                  
