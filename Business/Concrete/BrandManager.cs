@@ -27,10 +27,10 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        [SecuredOperation("add,admin")]
+        //[SecuredOperation("add,admin")]
         [ValidationAspect(typeof(BrandValidator))]
         [CacheRemoveAspect("IBrandService.Get")]
-        [LogAspect(typeof(FileLogger))]
+        //[LogAspect(typeof(FileLogger))]
         public IResult Add(Brand brand)
         {
             IResult result = BusinessRules.Run(CheckIfBrandNameExists(brand.BrandName));
@@ -42,7 +42,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandAdded);
         }
 
-        [SecuredOperation("delete,admin")]
+        //[SecuredOperation("delete,admin")]
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
@@ -56,14 +56,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Brand>>( _brandDal.GetAll(),Messages.Listed);
         }
 
-        [SecuredOperation("list,admin")]
+        //[SecuredOperation("list,admin")]
         [CacheAspect]
         public IDataResult<Brand> GetById(int brandId)
         {
             return  new SuccessDataResult<Brand>( _brandDal.Get(b => b.Id == brandId));
         }
 
-        [SecuredOperation("update,admin")]
+        //[SecuredOperation("update,admin")]
         [ValidationAspect(typeof(BrandValidator))]
         [CacheRemoveAspect("IBrandService.Get")]
         public IResult Update(Brand brand)
