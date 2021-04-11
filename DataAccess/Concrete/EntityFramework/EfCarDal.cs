@@ -32,6 +32,7 @@ namespace DataAccess.Concrete.EntityFramework
                              {
                                  Id = car.Id,
                                  BrandId = b.Id,
+                                 findeks = car.Findeks,
                                  BrandName = b.BrandName,
                                  ColorId = cl.Id,
                                  ColorName = cl.ColorName,
@@ -40,17 +41,9 @@ namespace DataAccess.Concrete.EntityFramework
                                  Description = car.Description,
                                  ImagePath = (from im in context.CarImages where im.CarId==car.Id select im.ImagePath).FirstOrDefault(),
                                 
-                                
-                                 
-                                 
-
-
+                   
                              };
                 return filter == null ? result.ToList() : result.Where(filter).ToList();
-
-
-
-
 
             }
         }

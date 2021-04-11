@@ -55,5 +55,10 @@ namespace Business.Constans
         public static string InsufficientBalance = "Yetersiz bakiye";
 
         public static string PaymentCompleted = "Ödeme yapıldı";
+        internal static string UserNotFound;
+        internal static string PasswordError;
+        internal static string PasswordChanged;
+        public static string FindeksError="Findeks puanınız kiralamak için yeterli değil!";
+        public static string CreditCardAdded = "Kredi Kartı Eklendi";
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -31,11 +32,13 @@ namespace WebAPI.Controllers
             var result = _authService.CreateAccessToken(userToLogin.Data);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
         }
+        
+       
 
         [HttpPost("register")]
         public ActionResult Register(UserForRegisterDto userForRegisterDto)
@@ -54,6 +57,19 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(result.Message);
+        }
+
+
+        [HttpPost("changepassword")]
+        public ActionResult ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            var result = _authService.ChangePassword(changePasswordDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
         }
     }
 }

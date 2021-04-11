@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -23,24 +24,55 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-        public List<OperationClaim> GetClaims(User user)
+        public IDataResult<User> GetById(int id)
         {
-            return _userDal.GetClaims(user);
+          return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id));
         }
 
-        public void Add(User user)
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+        }
+
+        public IResult Add(User user)
         {
             _userDal.Add(user);
+            return new SuccessResult();
         }
 
-        public User GetByMail(string email)
+        public IDataResult<User> GetByMail(string email)
         {
-            return _userDal.Get(u => u.Email == email);
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
         }
 
-        public List<User> GetAll()
+        public IDataResult<List<UserRentalDto>> GetRentalUserId(int userId)
         {
-            return _userDal.GetAll();
+            List<UserRentalDto> userRentalDtos = (_userDal.GetUserRentalDto(u => u.UserId == userId));
+            if (userRentalDtos==null)
+            {
+                return new ErrorDataResult<List<UserRentalDto>>(Messages.GetErrorCarMessage);
+            }
+            else
+            {
+                return new SuccessDataResult<List<UserRentalDto>>(userRentalDtos);
+            }
+
+          
+        }
+
+        public IResult Update(User user)
+        {
+            var userUpdate = GetById(user.Id).Data;
+            userUpdate.FirstName = user.FirstName;
+            userUpdate.LastName = user.LastName;
+            userUpdate.Email = user.Email;
+            _userDal.Update(userUpdate);
+            return new SuccessResult(Messages.UserUpdated);
+        }
+
+        public IDataResult<List<User>> GetAll()
+        {
+            return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
     }
 }

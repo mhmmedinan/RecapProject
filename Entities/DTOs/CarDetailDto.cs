@@ -3,6 +3,7 @@ using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Entities.DTOs
 {
@@ -10,6 +11,7 @@ namespace Entities.DTOs
     {
         public int Id { get; set; }
         public int BrandId { get; set; }
+        public int findeks { get; set; }
         public int ColorId { get; set; }     
         public string BrandName { get; set; }
         public string ColorName { get; set; }

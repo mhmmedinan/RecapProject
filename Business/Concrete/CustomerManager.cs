@@ -8,6 +8,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -19,6 +20,14 @@ namespace Business.Concrete
         {
             _customerDal = customerDal;
         }
+
+        public IDataResult<List<CustomerDetailDto>> GetCustomerUserId(int userId)
+        {
+            return new SuccessDataResult<List<CustomerDetailDto>>(
+                _customerDal.GetCustomerUserId(u => u.UserId == userId));
+        }
+
+
         [CacheRemoveAspect("ICustomerService.Get")]
         public IResult Add(Customer customer)
         {
@@ -38,11 +47,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(),Messages.Listed);
         }
 
-        [CacheAspect]
         public IDataResult<Customer> GetById(int customerId)
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(c=>c.Id==customerId));
         }
+
 
         [CacheAspect]
         public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()

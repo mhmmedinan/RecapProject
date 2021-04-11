@@ -41,6 +41,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  FirstName = user.FirstName,
                                  LastName = user.LastName,
                                  CompanyName = customer.CompanyName,
+                                 UserId = user.Id,
                                  RentDate = rental.RentDate,
                                  ReturnDate = rental.ReturnDate
 
