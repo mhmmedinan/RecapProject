@@ -7,3 +7,8 @@
 ![Github stats 2](https://github-readme-stats.vercel.app/api?username=mrm65&show_icons=true&theme=radical)
 
 <p><h2>Business</h2></p>
+<img src="https://github.com/mrm65/RecapProject/blob/master/b1.JPG" width="auto">
+<img src="https://github.com/mrm65/RecapProject/blob/master/b2.JPG" width="auto">
+<img src="https://github.com/mrm65/RecapProject/blob/master/b3.JPG" width="auto">
+<img src="https://github.com/mrm65/RecapProject/blob/master/b4.JPG" width="auto">
+
