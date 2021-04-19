@@ -42,28 +42,28 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandAdded);
         }
 
-        //[SecuredOperation("delete,admin")]
+        [SecuredOperation("delete,admin")]
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
             return new SuccessResult(Messages.BrandDeleted);
         }
 
-        //[SecuredOperation("list,admin")]
+       [SecuredOperation("list,admin")]
         [CacheAspect]
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>( _brandDal.GetAll(),Messages.Listed);
         }
 
-        //[SecuredOperation("list,admin")]
+       [SecuredOperation("list,admin")]
         [CacheAspect]
         public IDataResult<Brand> GetById(int brandId)
         {
             return  new SuccessDataResult<Brand>( _brandDal.Get(b => b.Id == brandId));
         }
 
-        //[SecuredOperation("update,admin")]
+        [SecuredOperation("update,admin")]
         [ValidationAspect(typeof(BrandValidator))]
         [CacheRemoveAspect("IBrandService.Get")]
         public IResult Update(Brand brand)

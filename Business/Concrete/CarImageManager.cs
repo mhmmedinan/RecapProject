@@ -26,9 +26,9 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
-        //[SecuredOperation("add,admin")]
+        [SecuredOperation("add,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
-        //[CacheRemoveAspect("ICarImageService.Get")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
            IResult result = BusinessRules.Run(CheckIfImageLimit(carImage.CarId),CheckIfCarImageNull(carImage.Id));
@@ -61,7 +61,7 @@ namespace Business.Concrete
         }
 
 
-        //[SecuredOperation("list,admin")]
+        [SecuredOperation("list,admin")]
         [CacheAspect]
         public IDataResult<CarImage> Get(int id)
         {
@@ -69,7 +69,7 @@ namespace Business.Concrete
         }
 
 
-        //[SecuredOperation("list,admin")]
+        [SecuredOperation("list,admin")]
         [CacheAspect]
         public IDataResult<List<CarImage>> GetAll()
         {
@@ -77,7 +77,7 @@ namespace Business.Concrete
         }
 
 
-        //[SecuredOperation("list,admin")]
+        [SecuredOperation("list,admin")]
         [CacheAspect]
         public IDataResult<List<CarImage>> GetImagesByCarId(int id)
         {
