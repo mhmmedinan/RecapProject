@@ -27,7 +27,7 @@
 
 # Packages used
 
--Autofac.Extensions.DependencyInjection  7.1.0
+- Autofac.Extensions.DependencyInjection  7.1.0
 -Autofac 6.1.0
 -Autofac.Extras.DynamicProxy 6.0.0
 -log4net 2.0.12
