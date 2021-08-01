@@ -28,21 +28,21 @@
 # Packages used
 
 - Autofac.Extensions.DependencyInjection  7.1.0
--Autofac 6.1.0
--Autofac.Extras.DynamicProxy 6.0.0
--log4net 2.0.12
--MicroKnights.Log4NetAdoNetAppender      2.2.0
--Microsoft.AspNetCore.Authentication.JwtBearer 3.1.11
--Microsoft.AspNetCore.Http.Features 5.0.3
--Microsoft.AspNetCore.Hosting 2.2.7
--Microsoft.AspNetCore.Hosting.Abstractions  2.2.0
--Microsoft.EntityFrameworkCore.SqlServer 3.1.11
--Microsoft.EntityFrameworkCore.Tools 3.1.11
--Microsoft.Extensions.Logging.Debug 5.0.0
--FluentValidation 9.5.1
--Microsoft.IdentityModel.Tokens 6.8.0
--Newtonsoft.Json 12.0.3
--System.IdentityModel.Tokens.Jwt 6.8.0
+- Autofac 6.1.0
+- Autofac.Extras.DynamicProxy 6.0.0
+- log4net 2.0.12
+- MicroKnights.Log4NetAdoNetAppender      2.2.0
+- Microsoft.AspNetCore.Authentication.JwtBearer 3.1.11
+- Microsoft.AspNetCore.Http.Features 5.0.3
+- Microsoft.AspNetCore.Hosting 2.2.7
+- Microsoft.AspNetCore.Hosting.Abstractions  2.2.0
+- Microsoft.EntityFrameworkCore.SqlServer 3.1.11
+- Microsoft.EntityFrameworkCore.Tools 3.1.11
+- Microsoft.Extensions.Logging.Debug 5.0.0
+- FluentValidation 9.5.1
+- Microsoft.IdentityModel.Tokens 6.8.0
+- Newtonsoft.Json 12.0.3
+- System.IdentityModel.Tokens.Jwt 6.8.0
 
 
 
